@@ -1,0 +1,29 @@
+table: users
+(int) ID - primary key
+(bool) isAdmin - not null, default false
+(varChar) email - not null, unique
+(varChar) password - not null - stored after hashing
+
+table: auctions
+(int) ID - primary key
+(int) ownerUserID - foreign key references users(ID)
+(varChar) title - not null
+(text) description
+(int) startPrice - not null
+(int) lastBetID - foreign key references bids(ID)
+(date) startDate - not null
+(date) endDate - not null
+(int) winnerId - foreign key references users(ID)
+(enum->{ongoing, completed, canceled}) status - not null, default ongoing
+
+table: bids
+(int) ID - primary key
+(int) authorID - foreign key references users(ID)
+(int) auctionID - foreign key references auctions(ID)
+(int) price - not null
+(date) bidDate - not null
+
+table: images
+(int) ID - primary key
+(int) auctionID - foreign key references auctions(ID)
+(varChar) url - not null

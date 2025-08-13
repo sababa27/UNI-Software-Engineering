@@ -1,0 +1,39 @@
+problem 0:
+Given a list of strings return combine sum of all characters
+
+Problem 1:
+Given a list of integers, write a Java stream to find the sum of all even numbers in the list.
+
+Problem 2:
+Given a list of strings, write a Java stream to filter out all strings that contain the letter 'a'
+(case-insensitive), and return a new list with the filtered strings.
+
+Problem 3:
+Given a list of Person objects, where each Person has a name and age, write a Java stream to
+find the average age of all people whose names start with the letter 'A'.
+
+Problem 4:
+Given a list of integers, write a Java stream to find the maximum value in the list.
+
+Problem 5:
+Given a list of strings, write a Java stream to convert each string to uppercase and concatenate
+them into a single string.
+
+Problem 7:
+divisible by 3.
+Given a list of integers, write a Java stream to find the sum of the squares of all numbers
+
+Problem 8:
+Given a list of strings, write a Java stream to find the length of the longest string in the list.
+
+Problem 9:
+the list.
+Given a list of integers, write a Java stream to find the average of the first 10 even numbers in
+
+Problem 10:
+Given a list of strings, write a Java stream to filter out all strings with length less than 5, sort
+them in alphabetical order, and return a new list with the sorted strings.
+
+problem 11:
+give numbers indexes
+

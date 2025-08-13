@@ -1,0 +1,49 @@
+context _ shevinaxevt service layers instances romelsac gadavcemt repo instancebs
+
+Model:
+
+
+Controller:
+    /Login:
+        doPost:
+            request parameters: name, password
+            action: hash the password, if it's the same as in the base(user = returnUserIdByName())
+            create a session and set user_id as it's attribute redirect /HomePage
+            if user_id doesn't exist, redirect to /register
+
+    /Register:
+        doPost:
+        request parameters: name, password
+        action: hash the password, save it (saveUser())
+        create a session and set user_id as it's attribute redirect /HomePage
+
+
+    /HomePage
+        doGet:
+            should display all the auctions. (ArrayList<Auctions>  auctions= returnAllAuctions();)
+            da am lists awvdis jsp attirbutad
+
+    /Filter
+        doPost:
+            request parameters: time, status, title
+            filterByTime()
+            filterByStatus()
+            filterByTitle()
+
+    /AuctionDetails
+
+    /BidOnAuction
+
+
+
+
+Dao:
+
+
+
+Service
+    saveUser()
+    user = returnUserIdByName()
+    ArrayList<Auctions> returnAllAuctions()
+
+    Search(status

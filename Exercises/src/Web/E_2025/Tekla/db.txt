@@ -1,0 +1,24 @@
+users:
+id - pk
+isAdmin boolean  default false
+name varchar
+passwordHashed varchar
+
+Auctions:
+id (PK, INT, AUTO_INCREMENT)
+title (VARCHAR)
+description (TEXT)
+start_price (INT)
+start_time (DATETIME)
+end_time (DATETIME)
+is_active (BOOLEAN)
+final_bid_id (FK → Bids.id, nullable)
+creator_id (FK → Users.id)
+
+
+Bids
+id (PK, INT, AUTO_INCREMENT)
+auction_id (FK → Auctions.id)
+user_id (FK → Users.id)
+amount (INT)
+timestamp (DATETIME)

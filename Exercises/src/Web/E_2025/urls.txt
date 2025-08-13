@@ -1,0 +1,75 @@
+-contextListener -> contextInitialized()
+    შეიქმნება ყველა repository და service ლეირის კლასი რომ მთელ აპლიკაციაში ამ
+    კლასების მხოლოდ 1 instance არსებობდეს. შექმნილი dao instance-ები გადაეცემათ
+    იმ service კლასებს რომლებსაც ისინი იყენებენ ხოლო service ინსტანსებს შევინახავ
+    serviceManager კლასში რომელიც დაემატება კონტექსტის ატრიბუტად რომ ნებისმიერ დროს
+    ამივოღო.
+    context ატრიბუტად შევინახავ reentrantLock-საც რომელსაც შემდეგ გამოვიყენებ ბიდების
+    დადებისას.
+
+
+
+===MODEL===
+class User{
+    int id;
+    Boolean isAdmin;
+    String email;
+    String hashedPassword;
+
+    constructor, getter, setters;
+};
+===MODEL===
+
+===REPOSITORY===
+class UserDao{
+    User getUserByEmail(String email){
+    ამოწმებს ბაზაში არსებობს თუ არა მეილი
+    }
+
+    void addUser(User user){
+        ვამატებ იუზერს ბაზაში
+    }
+}
+===REPOSITORY===
+
+
+===SERVICE===
+class UsersService {
+    public sersService(UserDao userdao){
+        ინახავს userdao ინსტანსს
+    }
+
+    Boolean isMailRegistered(string email){
+        return userdao.getUserByEmail(email) != null
+    };
+
+    void addAccount(User user){
+        user.setPassword(ჰაშირებული password);
+        userdao.addUser(user);
+    }
+
+}
+===SERVICE===
+
+
+
+===controller===
+class: registrationServlet{
+    doPost(request, response){
+        request-დან ვიღებ email-ს და passwords
+
+        context ატრიბუტებიდან ვიღებ userService კლასის instance-ს
+
+        if(userservice.isMailRegistered(mail){
+            response.sendRedirect("mailAlreadyInUse.jsp");
+        }
+
+        else{
+
+           response.sendRedirect("succesfullRegister.jsp");
+        }
+    }
+
+}
+
+===controller===

@@ -1,0 +1,24 @@
+Table  - users
+(int) ID - Primary key
+(bool) isAdmin - not null, default false
+(varChar) email - not null, unique
+(varChar) password - not null - stored after hashing
+(bool) isActivated - not null, default false
+(bool) isRestricted - not null, default false
+
+Table - Categories
+(int) ID - Primary key
+(varChar) category - not null, unique
+
+Table - posts
+(int) ID - primary key
+(int) userID - foreign key references users(ID)
+(int) categoryID - foreign key references Categories(ID)
+(varChar) title - not null
+(text) description
+
+Table - comments
+(int) ID - primary key
+(int) userID - foreign key references users(ID)
+(int) postID - foreign key references posts(ID)
+(text) description

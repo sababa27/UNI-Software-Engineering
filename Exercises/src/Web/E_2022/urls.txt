@@ -1,0 +1,49 @@
+- contextListener -> contextInitialized()
+    შეიქმნება ყველა repository და service ლეირის კლასი რომ მთელ აპლიკაციაში ამ
+    კლასების მხოლოდ 1 instance არსებობდეს. შექმნილი dao instance-ები გადაეცემათ
+    იმ service კლასებს რომლებსაც ისინი იყენებენ ხოლო service ინსტანსებს შევინახავ
+    serviceManager კლასში რომელიც დაემატება კონტექსტის ატრიბუტად რომ ნებისმიერ დროს
+    ამივოღო.
+
+===model===
+User - ინახავს users table-ის თითოეული სტრიქონის ყველა ელემენტს
+Category -  ინახავს categories table-ის თითოეული სტრიქონის ყველა ელემენტს
+Post - ინახავს post table-ის თითოეული სტრიქონის ყველა ელემენტს
+Comment - ინახავს comment table-ის თითოეული სტრიქონის ყველა ელემენტს
+
+===controller===
+RegistrationServlet ->  doPost(){ request-დან ამოიღე ინფო და თუ ჯერ არ ასებობს მსგავსი მეილი დარეგისტირებულთა ბაზაში, დაარეგისტრირე და მოსთხოვე თავიდან login. მეილზე გაუგზავნე activatio link}
+LoginServlet        ->  doPost(){ request-დან ამოიღე ინფო შეამოწმე თუ არსებობს ეს login და თუ არსებობს სესიაში ჩადე ამ იუზერის მხოლოდ ID}
+activationServlet   ->  doPut(){ თუ აქ შემოვიდა შესაბამისად უკვე აქტივაციისთვის დაჭერილი აქვს მომხმარებელს და დარეგისტრირების შემდეგ დალოგინდა, სესიაში დევს ID და მაგ აიდის მიხედვით იუზერს გაუაქტიურე სტატუს}
+categoriesServlet   ->  doGet(){ ნებისმიერ მომხმარებელს გამოუჩნდება ყველა არსებული კატეგორია და შეძლებს არჩევას}
+PostsServlet        ->  doGet(){ აქ გადმოსვლისას request-ში ინახება კატეგორიის ID და ნებისმიერ მომხარებელს გამოუჩნდება ამ კატეგორიაში ყველა პოსტი, თუ სესიაში დამახსოვრებული userId არ არის null, და ამ user-ს გააქტიურებული აქვს სტატუსი, გამოუჩნდეს Add new Post ღილაკი}
+CommentsServlet     ->  doGet(){ აქ გადმოსვლისას request-ში ინახება პოსტის ID და ნებისმიერ მომხარებელს გამოუჩნდება ამ პოსტზე ყველა კომენტარი, თუ სესიაში დამახსოვრებული userId არ არის null, და ამ user-ს გააქტიურებული აქვს სტატუსი, გამოუჩნდეს Add new Comment ღილაკი}
+LogoutServlet       ->  doGet(){ მთლიან სესიას ასუფთავებს}
+
+===service====
+UsersService        ->  bool isEmailAlreadyRegistered(String email){}
+                    ->  void registerNewUser(String email, String password){ user-ს პაროლად დაუყენოს ჰაშირებული პაროლი, აქტივაცია და ადმინი დაუყენოს false}
+                    ->  bool checkLogin(String email, String password){ პაროლი გახადე ჰაშირებული და getUserByEmail-ს გამოყენებით შეამოწმე თუ ემთხვევა ამ იმეილის პაროლს}
+                    ->  int getIdFromEmail(String email){ დააბრუნე id getUserByEmail გამოყენებით}
+                    ->  void activateStatus(int userID){}
+                    ->  bool isUserActivated(int userID){getUserByID-ის მიხედვით შევამოწმებ და დავაბრუნებ}
+
+CategoriesService   ->  List<Category> getAllCategories{აბრუნებს ყველა კატეგორიას}
+
+PostsService        ->  List<Post> getAllPosts(int categoryID){აბრუნებს ამ კატეგორიაში ყველა პოსტს}
+
+CommentsService     ->  List<Comment> getAllComments(int postID){}
+
+
+===repository====
+UsersDao            ->  User getUserByEmail(String email){}
+                    ->  void addNewUser(User user){}
+                    ->  void activateStatus(int userID){}
+                    ->  User getUserByID(int id){}
+
+CategoriesDao       ->  List<Category> getAllCategories{}
+
+PostsDao            ->  List<Post>  getAllPosts(int categoryID)
+
+CommentsDao     ->  List<Comment> getAllComments(int postID){}
+

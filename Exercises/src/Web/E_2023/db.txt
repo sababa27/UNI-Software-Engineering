@@ -1,0 +1,43 @@
+table: users
+(int) ID - primary key
+(ENUM('CUSTOMER', 'SELLER', 'ADMINISTRATOR')) role - not null
+(bool) isUserBlocked - not null, default false
+(ENUM('ACTIVATED', 'NOTACTIVATED', 'NOTSELLER')) selerStatus - not null
+(varChar) email - not null
+(varChar) hashedPassword - not null
+
+table: categories
+(int) ID - primary key
+(varChar) - name - not null
+
+table: products
+(int) ID - primary key
+(int) categoryID - foreign key categories(ID)
+(varChar) name - not null
+(text) description
+(double) price - not null
+(int) quantity - not null
+(bool) isBlocked - not null, default false
+
+table: cart
+(int) ID - primary key
+(int) ownerID - foreign key users(ID)
+
+table: cartProducts
+(int) carID - foreign key cart(ID)
+(int) productID - foreign key products(ID)
+
+table: bought
+(int) ID - primary key
+(int) ownerID - foreign key users(ID)
+
+table: boughtProducts
+(int) boughID - foreign key bought(ID)
+(int) productID - foreign key products(ID)
+(int) quantity - not null, default 1
+
+table: reviews
+(int) ID - primary key
+(int) userID - foreign key users(ID)
+(int) productID - foreign key products(ID)
+(int) rating - not null, maximum 10, minimum 0
